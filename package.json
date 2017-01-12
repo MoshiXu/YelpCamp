@@ -1,0 +1,15 @@
+{
+  "name": "yelp-camp",
+  "version": "1.0.0",
+  "description": "Simple Yelp clone using Node.js for the back-end.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nema",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.5",
+    "express": "^4.14.0"
+  }
+}
