@@ -1,0 +1,10 @@
+<% include partials/header %>
+    <h1>List of campgrounds</h1>
+    <ul>
+      <% campgrounds.forEach((campground) => { %>
+        <li>
+          <%= campground %>
+        </li>
+      <% }) %>
+    </ul>
+<% include partials/footer %>
