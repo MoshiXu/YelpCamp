@@ -1,3 +1,8 @@
-h1 {
-  color:green;
+.btn {
+  margin: 5px 0;
+}
+
+.camp-grid {
+  display: flex;
+  flex-wrap: wrap;
 }

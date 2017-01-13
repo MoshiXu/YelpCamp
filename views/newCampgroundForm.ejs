@@ -1,11 +1,15 @@
 <% include partials/header %>
     <h1>Add Campground</h1>
 
-    <form action="/newCampground" method="post">
-      <input type="text" name="campName" />
-      <button type="submit">Submit</button>
+    <form action="/campgrounds" method="post">
+      <div class="form-group">
+        <label for="campName">Camp Name</label>
+        <input type="text" name="campName" class="form-control"/>
+        <label for="campImage">Camp Picture</label>
+        <input type="text" name="campImage" class="form-control"/>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
-    <a href='/'>Back to Home</a>
-    <a href="/campgrounds">View all</a>
+    <a href='/' class="btn btn-outline-primary">Back to Home</a>
+    <a href="/campgrounds" class="btn btn-outline-primary">View all</a>
 <% include partials/footer %>
