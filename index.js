@@ -37,14 +37,14 @@ app.get('/campgrounds', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render("index", {campgrounds});
+      res.render("campgrounds/index", {campgrounds});
     }
   });
 });
 
 //New route
 app.get('/campgrounds/new', (req, res) => {
-  res.render("new");
+  res.render("campgrounds/new");
 });
 
 //Create route
@@ -65,13 +65,46 @@ app.post('/campgrounds', (req, res) => {
 
 //Show route
 app.get('/campgrounds/:id', (req, res) => {
+  Campground.findById(req.params.id).populate("comments").exec((err, campground) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render("campgrounds/show", {campground});
+    }
+  });
+});
+
+//New route
+app.get('/campgrounds/:id/comments/new', (req,res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if(err) {
       console.log(err);
     } else {
-      res.render("show", {campground});
+      res.render("comments/new", {campground});
     }
   });
+});
+
+//Create route
+app.post('/campgrounds/:id/comments', (req, res) => {
+  const {comment, author} = req.body;
+  Campground.findById(req.params.id, (err, campground) => {
+    if(err) {
+      console.log(err);
+    } else {
+      Comment.create({
+        author: author,
+        text: comment
+      }, (err, data) => {
+        if(err) {
+          console.log(err);
+        }
+        campground.comments.push(data);
+        campground.save();
+        res.redirect(`/campgrounds/${req.params.id}`);
+      });
+    }
+  })
 });
 
 //Edit route

@@ -32,25 +32,31 @@ function seedDB(){
       console.log(err);
     }
     console.log("Removed Campground data...");
-    data.forEach((seed) => {
-      Campground.create(seed, (err, campground) => {
-        if(err) {
-          console.log(err);
-        } else {
-          console.log("Populated database...");
-          Comment.create({
-            text: "Here is a comment.",
-            author: "Albert"
-          }, (err, comment) => {
-            if(err) {
-              console.log(err);
-            } else {
-              campground.comments.push(comment);
-              campground.save();
-              console.log("Created comment...");
-            }
-          });
-        }
+    Comment.remove({}, (err) => {
+      if(err) {
+        console.log(err);
+      }
+      console.log("Removed Comment data...");
+      data.forEach((seed) => {
+        Campground.create(seed, (err, campground) => {
+          if(err) {
+            console.log(err);
+          } else {
+            console.log("Populated database...");
+            Comment.create({
+              text: "Here is a comment.",
+              author: "Albert"
+            }, (err, comment) => {
+              if(err) {
+                console.log(err);
+              } else {
+                campground.comments.push(comment);
+                campground.save();
+                console.log("Created comment...");
+              }
+            });
+          }
+        });
       });
     });
   });
