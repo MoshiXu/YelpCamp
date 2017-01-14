@@ -57,6 +57,7 @@ app.post('/campgrounds', (req, res) => {
   }, (err, campground) => {
     if(err) {
       console.log(err);
+      res.redirect('/campgrounds/new');
     } else {
       res.redirect('/campgrounds');
     }
@@ -68,6 +69,7 @@ app.get('/campgrounds/:id', (req, res) => {
   Campground.findById(req.params.id).populate("comments").exec((err, campground) => {
     if(err) {
       console.log(err);
+      res.redirect('/campgrounds');
     } else {
       res.render("campgrounds/show", {campground});
     }
@@ -79,6 +81,7 @@ app.get('/campgrounds/:id/comments/new', (req,res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if(err) {
       console.log(err);
+      res.redirect('/campgrounds');
     } else {
       res.render("comments/new", {campground});
     }
@@ -91,6 +94,7 @@ app.post('/campgrounds/:id/comments', (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if(err) {
       console.log(err);
+      res.redirect('/campgrounds');
     } else {
       Comment.create({
         author: author,
@@ -101,7 +105,7 @@ app.post('/campgrounds/:id/comments', (req, res) => {
         }
         campground.comments.push(data);
         campground.save();
-        res.redirect(`/campgrounds/${req.params.id}`);
+        res.redirect(`/campgrounds/${campground.id}`);
       });
     }
   })

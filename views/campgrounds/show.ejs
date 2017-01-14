@@ -1,15 +1,21 @@
 <% include ../partials/header %>
   <h2 class="text-center"><%= campground.name %></h2>
-  <figure class="figure">
-    <img src="<%= campground.image %>" class="img-fluid figure-img">
-    <h4 class="figure-caption"><%= campground.description %></h4>
-  </figure>
-  <a href="/campgrounds/<%= campground.id %>/comments/new" class="btn btn-primary">Add a comment</a>
-  <ul class="list-group">
-    <% campground.comments.forEach((comment) => { %>
-      <li class="list-group-item">
-        <strong><%= comment.author %></strong> - <%= comment.text %>
-      </li>
-    <% }) %>
-  </ul>
+  <div class="row justify-content-center">
+    <figure class="figure col-12">
+      <img src="<%= campground.image %>" class="img-fluid figure-img">
+      <h4 class="figure-caption"><%= campground.description %></h4>
+    </figure>
+  </div>
+  <div class="row justify-content-start">
+    <a href="/campgrounds/<%= campground.id %>/comments/new" class="btn btn-primary comment-button">Add a comment</a>
+  </div>
+  <div class="row justify-content-center">
+    <ul class="list-group">
+      <% campground.comments.forEach((comment) => { %>
+        <li class="list-group-item">
+          <strong><%= comment.author %></strong> - <%= comment.text %>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
 <% include ../partials/footer %>

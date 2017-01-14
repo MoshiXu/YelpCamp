@@ -6,3 +6,7 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.comment-button {
+  margin-left: 15px;
+}
