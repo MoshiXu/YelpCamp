@@ -1,7 +1,8 @@
 {
   "name": "yelp-camp",
   "version": "1.0.0",
-  "description": "Simple Yelp clone using Node.js for the back-end.",
+  "description": "Simple Yelp clone using Node.js for the back-end, MongoDB and
+   Mongoose for the database.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
