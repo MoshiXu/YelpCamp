@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var Campground = require('./models/campground');
 
 const PORT = process.env.PORT || 3000;
 
@@ -10,20 +11,6 @@ mongoose.connect('mongodb://localhost/yelpcamp');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-
-
-
-//REFACTOR INTO MODELS  ///////////////////////////////////////
-var campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
-
-var Campground = mongoose.model("Campground", campgroundSchema);
-////////////////////////////////////////////////////////////////
-
-
 
 app.get('/', (req, res) => {
   res.render("landing");
@@ -66,6 +53,18 @@ app.get('/campgrounds/:id', (req, res) => {
       res.render("show", {campground});
     }
   });
+});
+
+app.get('/campgrounds/:id/edit', (req, res) => {
+  res.send("EDIT PAGE");
+});
+
+app.put('/campgrounds/:id', (req, res) => {
+  res.send("UPDATE ROUTE");
+});
+
+app.delete('/campgrounds/:id', (req, res) => {
+  res.send("DELETE ROUTE");
 });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
