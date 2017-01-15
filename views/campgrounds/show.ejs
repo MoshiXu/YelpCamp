@@ -4,7 +4,7 @@
       <p>Yelp Camp</p>
       <ul class="list-group">
         <li class="list-group-item">
-          <%= campground.authorId %>
+          Info 1
         </li>
         <li class="list-group-item">
           Info 2
@@ -18,10 +18,11 @@
       <img src="<%= campground.image %>" class="img-fluid figure-img camp-image">
       <div class="camp-info">
         <div class="row justify-content-between align-items-center">
-          <h2 class="col-4"><%= campground.name %></h2>
+          <h3 class="col-4"><%= campground.name %></h3>
           <h6 class="col-4 text-right">$9.99/night</h6>
         </div>
         <div class="row">
+          <p class="figure-caption camp-desc"><em>Submitted by <%= campground.author.username %></em></p>
           <p class="figure-caption camp-desc"><%= campground.description %></p>
         </div>
       </div>

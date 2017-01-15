@@ -26,7 +26,9 @@ router.post('/', isLoggedIn, (req, res) => {
     name: campName,
     image: campImage,
     description: campDescription,
-    authorId: req.user.id
+    author: {
+      id: req.user.id,
+      username: req.user.username }
   }, (err, campground) => {
     if(err) {
       console.log(err);
