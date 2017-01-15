@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+    <h1 class="text-center">Login</h1>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form action="/login" method="post">
+          <div class="form-group">
+            <input type="text" name="username" class="form-control" placeholder="Your email address"/>
+          </div>
+          <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Your password here"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          <a href="/campgrounds" class="btn btn-outline-secondary btn-block">Cancel</a>
+        </form>
+      </div>
+    </div>
+<% include ../partials/footer %>
