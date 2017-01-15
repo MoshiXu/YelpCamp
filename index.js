@@ -43,7 +43,7 @@ passport.deserializeUser(User.deserializeUser());
 //////////////////////////////////////
 //Landing Page
 app.get('/', (req, res) => {
-  res.render("landing");
+  res.render("landing", {currentUser: req.user});
 });
 
 //Index route
@@ -53,14 +53,14 @@ app.get('/campgrounds', (req, res) => {
       console.log(err);
       res.redirect(`/`);
     } else {
-      res.render("campgrounds/index", {campgrounds});
+      res.render("campgrounds/index", {campgrounds, currentUser: req.user});
     }
   });
 });
 
 //New route
 app.get('/campgrounds/new', isLoggedIn, (req, res) => {
-  res.render("campgrounds/new");
+  res.render("campgrounds/new", {currentUser: req.user});
 });
 
 //Create route
@@ -87,7 +87,7 @@ app.get('/campgrounds/:id', (req, res) => {
       console.log(err);
       res.redirect('/campgrounds');
     } else {
-      res.render("campgrounds/show", {campground});
+      res.render("campgrounds/show", {campground, currentUser: req.user});
     }
   });
 });
@@ -99,7 +99,7 @@ app.get('/campgrounds/:id/comments/new', isLoggedIn, (req,res) => {
       console.log(err);
       res.redirect('/campgrounds');
     } else {
-      res.render("comments/new", {campground});
+      res.render("comments/new", {campground, currentUser: req.user});
     }
   });
 });
@@ -129,7 +129,7 @@ app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  res.render("users/register");
+  res.render("users/register", {currentUser: req.user});
 });
 
 app.post('/register', (req, res) => {
@@ -147,7 +147,7 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render("users/login");
+  res.render("users/login", {currentUser: req.user});
 });
 
 app.post('/login', passport.authenticate("local", {
