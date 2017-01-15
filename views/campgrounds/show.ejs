@@ -30,20 +30,24 @@
 
 
   <div class="row justify-content-end">
-    <a href="/campgrounds/<%= campground.id %>/comments/new" class="btn btn-primary comment-button">Add a comment</a>
   </div>
   <div class="row justify-content-end">
     <div class="col-md-9">
+      <div class="text-right">
+        <a href="/campgrounds/<%= campground.id %>/comments/new" class="btn btn-primary comment-button">Add a comment</a>
+      </div>
+      <hr />
         <% campground.comments.forEach((comment) => { %>
-          <div class="comment">
+          <div>
             <div class="row justify-content-between align-items-center">
               <h6 class="col-4"><%= comment.author %></h6>
               <h6 class="col-4 text-right">20 days ago</h6>
             </div>
             <div class="row">
-              <p class="figure-caption comment-body"><%= comment.text %></p>
+              <p class="comment-body"><%= comment.text %></p>
             </div>
           </div>
+          <hr />
         <% }) %>
     </div>
 
