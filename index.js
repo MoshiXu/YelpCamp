@@ -32,6 +32,10 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+})
 app.set("view engine", "ejs");
 
 passport.use(new LocalStrategy(User.authenticate()));
@@ -43,7 +47,7 @@ passport.deserializeUser(User.deserializeUser());
 //////////////////////////////////////
 //Landing Page
 app.get('/', (req, res) => {
-  res.render("landing", {currentUser: req.user});
+  res.render("landing");
 });
 
 //Index route
@@ -53,14 +57,14 @@ app.get('/campgrounds', (req, res) => {
       console.log(err);
       res.redirect(`/`);
     } else {
-      res.render("campgrounds/index", {campgrounds, currentUser: req.user});
+      res.render("campgrounds/index", {campgrounds});
     }
   });
 });
 
 //New route
 app.get('/campgrounds/new', isLoggedIn, (req, res) => {
-  res.render("campgrounds/new", {currentUser: req.user});
+  res.render("campgrounds/new");
 });
 
 //Create route
@@ -87,7 +91,7 @@ app.get('/campgrounds/:id', (req, res) => {
       console.log(err);
       res.redirect('/campgrounds');
     } else {
-      res.render("campgrounds/show", {campground, currentUser: req.user});
+      res.render("campgrounds/show", {campground});
     }
   });
 });
@@ -99,7 +103,7 @@ app.get('/campgrounds/:id/comments/new', isLoggedIn, (req,res) => {
       console.log(err);
       res.redirect('/campgrounds');
     } else {
-      res.render("comments/new", {campground, currentUser: req.user});
+      res.render("comments/new", {campground});
     }
   });
 });
@@ -129,7 +133,7 @@ app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  res.render("users/register", {currentUser: req.user});
+  res.render("users/register");
 });
 
 app.post('/register', (req, res) => {
@@ -147,7 +151,7 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render("users/login", {currentUser: req.user});
+  res.render("users/login");
 });
 
 app.post('/login', passport.authenticate("local", {
