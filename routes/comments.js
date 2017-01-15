@@ -17,15 +17,18 @@ router.get('/new', isLoggedIn, (req,res) => {
 
 //Create route
 router.post('/', isLoggedIn, (req, res) => {
-  const {comment, author} = req.body;
+  const {comment} = req.body;
   Campground.findById(req.params.id, (err, campground) => {
     if(err) {
       console.log(err);
       res.redirect('/campgrounds');
     } else {
       Comment.create({
-        author: author,
-        text: comment
+        text: comment,
+        author: {
+          id: req.user.id,
+          username: req.user.username
+        }
       }, (err, data) => {
         if(err) {
           console.log(err);

@@ -23,7 +23,7 @@ var app = express();
 mongoose.connect('mongodb://localhost/yelpcamp');
 
 //Wipe data and then reseed database
-//seedDB();
+seedDB();
 
 //Express settings
 app.use(express.static("public"));
@@ -47,13 +47,6 @@ app.set("view engine", "ejs");
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-//////////////////////////////////////
-//  Routes
-//////////////////////////////////////
-
-
-
 
 //Server Start
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));

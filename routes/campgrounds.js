@@ -25,7 +25,8 @@ router.post('/', isLoggedIn, (req, res) => {
   Campground.create({
     name: campName,
     image: campImage,
-    description: campDescription
+    description: campDescription,
+    authorId: req.user.id
   }, (err, campground) => {
     if(err) {
       console.log(err);

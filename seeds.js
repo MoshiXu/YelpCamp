@@ -37,27 +37,27 @@ function seedDB(){
         console.log(err);
       }
       console.log("Removed Comment data...");
-      data.forEach((seed) => {
-        Campground.create(seed, (err, campground) => {
-          if(err) {
-            console.log(err);
-          } else {
-            console.log("Populated database...");
-            Comment.create({
-              text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-              author: "Albert"
-            }, (err, comment) => {
-              if(err) {
-                console.log(err);
-              } else {
-                campground.comments.push(comment);
-                campground.save();
-                console.log("Created comment...");
-              }
-            });
-          }
-        });
-      });
+      // data.forEach((seed) => {
+      //   Campground.create(seed, (err, campground) => {
+      //     if(err) {
+      //       console.log(err);
+      //     } else {
+      //       console.log("Populated database...");
+      //       Comment.create({
+      //         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      //         author: "Albert"
+      //       }, (err, comment) => {
+      //         if(err) {
+      //           console.log(err);
+      //         } else {
+      //           campground.comments.push(comment);
+      //           campground.save();
+      //           console.log("Created comment...");
+      //         }
+      //       });
+      //     }
+      //   });
+      // });
     });
   });
 }
