@@ -10,13 +10,4 @@
   <body>
     <% include navbar %>
     <div class="container">
-      <% if(errors.length > 0) { %>
-        <div class="alert alert-danger">
-          <strong><%= errors %></strong>
-        </div>
-      <% } %>
-      <% if(successes.length > 0) { %>
-        <div class="alert alert-success">
-          <strong><%= successes %></strong>
-        </div>
-      <% } %>
+      <% include flash %>
