@@ -27,10 +27,18 @@
   margin: 0 15px 5px 15px;
 }
 
+.comment {
+  padding-left: 15px;
+}
+
 .comment-body {
   color: #636c72;
   font-size: 90%;
   margin: 0 15px 5px 15px;
+}
+
+.option-buttons-group {
+  margin-left: 0;
 }
 
 .option-button {
@@ -39,4 +47,5 @@
 
 .delete-inline {
   display: inline;
+  margin-left: 3px;
 }

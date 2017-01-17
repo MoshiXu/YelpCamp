@@ -29,32 +29,37 @@
         </div>
         <% if(currentUser && campground.author.id.equals(currentUser.id)) { %>
           <hr />
-          <a href="/campgrounds/<%= campground.id %>/edit" class="btn btn-success option-button">Edit</a>
-          <form class="delete-inline" action="/campgrounds/<%= campground.id %>?_method=delete" method="post">
-            <button class="btn btn-danger option-button">Delete</button>
-          </form>
+          <div class="row option-buttons-group">
+            <a href="/campgrounds/<%= campground.id %>/edit" class="btn btn-success option-button">Edit</a>
+            <form class="delete-inline" action="/campgrounds/<%= campground.id %>?_method=delete" method="post">
+              <button class="btn btn-danger option-button">Delete</button>
+            </form>
+          </div>
         <% } %>
       </div>
     </figure>
   </div>
 
-
-  <div class="row justify-content-end">
-  </div>
   <div class="row justify-content-end">
     <div class="col-md-9">
       <div class="text-right">
         <a href="/campgrounds/<%= campground.id %>/comments/new" class="btn btn-primary comment-button">Add a comment</a>
       </div>
-      <hr />
         <% campground.comments.forEach((comment) => { %>
-          <div>
+          <hr />
+          <div class="comment">
             <div class="row justify-content-between align-items-center">
               <h6 class="col-4"><%= comment.author.username %></h6>
               <h6 class="col-4 text-right">20 days ago</h6>
             </div>
             <div class="row">
               <p class="comment-body"><%= comment.text %></p>
+            </div>
+            <div class="row option-buttons-group">
+              <a href="/campgrounds/<%= campground.id %>/comments/<%= comment.id%>/edit" class="btn btn-success btn-sm option-button comment-button">Edit</a>
+              <form class="delete-inline" action="/campgrounds/<%= campground.id %>/comments/<%= comment.id%>?_method=delete" method="post">
+                <button class="btn btn-danger btn-sm option-button comment-button">Delete</button>
+              </form>
             </div>
           </div>
           <hr />
