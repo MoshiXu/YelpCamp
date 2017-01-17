@@ -55,15 +55,17 @@
             <div class="row">
               <p class="comment-body"><%= comment.text %></p>
             </div>
-            <div class="row option-buttons-group">
-              <a href="/campgrounds/<%= campground.id %>/comments/<%= comment.id%>/edit" class="btn btn-success btn-sm option-button comment-button">Edit</a>
-              <form class="delete-inline" action="/campgrounds/<%= campground.id %>/comments/<%= comment.id%>?_method=delete" method="post">
-                <button class="btn btn-danger btn-sm option-button comment-button">Delete</button>
-              </form>
-            </div>
+            <% if(currentUser && comment.author.id.equals(currentUser.id)) { %>
+              <div class="row option-buttons-group">
+                <a href="/campgrounds/<%= campground.id %>/comments/<%= comment.id%>/edit" class="btn btn-success btn-sm option-button comment-button">Edit</a>
+                <form class="delete-inline" action="/campgrounds/<%= campground.id %>/comments/<%= comment.id%>?_method=delete" method="post">
+                  <button class="btn btn-danger btn-sm option-button comment-button">Delete</button>
+                </form>
+              </div>
+            <% } %>
           </div>
-          <hr />
         <% }) %>
+      <hr />
     </div>
 
   </div>

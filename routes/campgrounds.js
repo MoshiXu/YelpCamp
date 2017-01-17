@@ -101,12 +101,11 @@ function checkCampgroundOwnership(req, res, next) {
     Campground.findById(req.params.id, (err, campground) => {
       if(err) {
         console.log(err);
+        res.redirect("back");
+      } else if(campground.author.id.equals(req.user.id)) {
+        return next();
       } else {
-        if(campground.author.id.equals(req.user.id)) {
-          return next();
-        } else {
-          res.redirect("back");
-        }
+        res.redirect("back");
       }
     });
   } else {
