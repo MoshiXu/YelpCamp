@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
   Campground.find({}, (err, campgrounds) => {
     if(err) {
       console.log(err);
+      req.flash("error", 'Oops, there was a problem retrieving the campgrounds!');
       res.redirect(`/`);
     } else {
       res.render("campgrounds/index", {campgrounds});
@@ -33,8 +34,10 @@ router.post('/', isLoggedIn, (req, res) => {
   }, (err, campground) => {
     if(err) {
       console.log(err);
+      req.flash("error", 'Oops, your campground could not be created!');
       res.redirect('back');
     } else {
+      req.flash("success", 'Campground created!');
       res.redirect('/campgrounds');
     }
   });
@@ -45,6 +48,7 @@ router.get('/:id', (req, res) => {
   Campground.findById(req.params.id).populate("comments").exec((err, campground) => {
     if(err) {
       console.log(err);
+      req.flash("error", 'Campground not found!');
       res.redirect('/campgrounds');
     } else {
       res.render("campgrounds/show", {campground});
@@ -57,6 +61,7 @@ router.get('/:id/edit', checkCampgroundOwnership, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if(err) {
       console.log(err);
+      req.flash("error", 'Campground not found!');
       res.redirect('back');
     } else {
       res.render("campgrounds/edit", {campground});
@@ -74,7 +79,9 @@ router.put('/:id', checkCampgroundOwnership, (req, res) => {
     }, (err, campground) => {
     if(err) {
       console.log(err);
+      req.flash("error", 'Oops, your campground could not updated!');
     }
+    req.flash("success", 'Your campground has been updated!');
     res.redirect(`/campgrounds/${req.params.id}`);
   });
 });
@@ -84,9 +91,11 @@ router.delete('/:id', checkCampgroundOwnership, (req, res) => {
   Campground.findByIdAndRemove(req.params.id, (err) => {
     if(err) {
       console.log(err);
+      req.flash("error", 'Oops, could not delete your campground!');
       res.redirect('back');
     }
   })
+  req.flash("success", 'Campground deleted!');
   res.redirect('/campgrounds');
 });
 

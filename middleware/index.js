@@ -11,10 +11,12 @@ var middleware = {
           } else if(campground.author.id.equals(req.user.id)) {
             return next();
           } else {
+            req.flash("error", "You do no have permission to do that!");
             res.redirect("back");
           }
         });
       } else {
+        req.flash("error", "You must be logged in to do that!");
         res.redirect('/login');
       }
     },
@@ -28,10 +30,12 @@ var middleware = {
           } else if(comment.author.id.equals(req.user.id)) {
             return next();
           } else {
+            req.flash("error", "You do no have permission to do that!");
             res.redirect('back');
           }
         });
       } else {
+        req.flash("error", "You must be logged in to do that!");
         res.redirect('/login');
       }
     },
@@ -40,6 +44,7 @@ var middleware = {
         if(req.isAuthenticated()) {
           return next();
         }
+        req.flash("error", "You must be logged in to do that!");
         res.redirect('/login');
     }
 }

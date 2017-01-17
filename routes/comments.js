@@ -9,6 +9,7 @@ router.get('/new', isLoggedIn, (req,res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if(err) {
       console.log(err);
+      req.flash("error", 'Campground not found!');
       res.redirect('/campgrounds');
     } else {
       res.render("comments/new", {campground});
@@ -22,6 +23,7 @@ router.post('/', isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if(err) {
       console.log(err);
+      req.flash("error", 'Campground not found!');
       res.redirect('/campgrounds');
     } else {
       Comment.create({
@@ -33,10 +35,12 @@ router.post('/', isLoggedIn, (req, res) => {
       }, (err, data) => {
         if(err) {
           console.log(err);
+          req.flash("error", 'Oops, your comment could not created!');
           res.redirect(`/campgrounds/${campground.id}`);
         }
         campground.comments.push(data);
         campground.save();
+        req.flash("success", 'Comment created!');
         res.redirect(`/campgrounds/${campground.id}`);
       });
     }
@@ -49,6 +53,7 @@ router.get('/:commentId/edit', checkCommentOwnership, (req, res) => {
     Comment.findById(req.params.commentId, (err, comment) => {
       if(err) {
         console.log(err);
+        req.flash("error", 'Comment not found!');
         res.redirect('back');
       }
       res.render('comments/edit', {campgroundId, comment});
@@ -62,8 +67,10 @@ router.put('/:commentId', checkCommentOwnership, (req, res) => {
      (err, comment) => {
        if(err) {
          console.log(err);
+         req.flash("error", 'Oops, could not update your comment!');
          res.redirect('back');
        }
+       req.flash("success", 'Your comment has been updated!');
        res.redirect(`/campgrounds/${req.params.id}`);
   });
 });
@@ -72,8 +79,10 @@ router.put('/:commentId', checkCommentOwnership, (req, res) => {
 router.delete('/:commentId', checkCommentOwnership, (req, res) => {
   Comment.findByIdAndRemove(req.params.commentId, (err) => {
     if(err) {
+      req.flash("error", 'Oops, could not delete your comment!');
       console.log(err);
     }
+    req.flash("success", 'Comment deleted!');
     res.redirect('back');
   });
 });

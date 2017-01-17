@@ -8,6 +8,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var passportLocalMongoose = require('passport-local-mongoose');
 var methodOverride = require('method-override');
+var flash = require('connect-flash');
 var Campground = require('./models/campground');
 var Comment = require('./models/comment');
 var User = require('./models/user');
@@ -35,10 +36,13 @@ app.use(require('express-session')({
   saveUninitialized: false
 }));
 app.use(methodOverride('_method'));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.errors = req.flash('error');
+  res.locals.successes = req.flash('success');
   next();
 });
 app.use(indexRoutes);
