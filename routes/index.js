@@ -1,5 +1,6 @@
 var express = require('express');
 var passport = require('passport');
+var {isLoggedIn} = require('../middleware/index');
 var User = require('../models/user');
 var router = express.Router();
 
@@ -40,12 +41,5 @@ router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
-
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-      return next();
-    }
-    res.redirect('/login');
-};
 
 module.exports = router;

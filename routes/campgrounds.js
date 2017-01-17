@@ -1,5 +1,6 @@
 var express = require('express');
 var Campground = require('../models/campground');
+var {checkCampgroundOwnership, isLoggedIn} = require('../middleware/index');
 var router = express.Router();
 
 //Index route
@@ -88,29 +89,5 @@ router.delete('/:id', checkCampgroundOwnership, (req, res) => {
   })
   res.redirect('/campgrounds');
 });
-
-function isLoggedIn(req, res, next) {
-  if(req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
-
-function checkCampgroundOwnership(req, res, next) {
-  if(req.isAuthenticated()) {
-    Campground.findById(req.params.id, (err, campground) => {
-      if(err) {
-        console.log(err);
-        res.redirect("back");
-      } else if(campground.author.id.equals(req.user.id)) {
-        return next();
-      } else {
-        res.redirect("back");
-      }
-    });
-  } else {
-    res.redirect('/login');
-  }
-}
 
 module.exports = router;

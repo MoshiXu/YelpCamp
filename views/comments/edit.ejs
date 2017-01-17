@@ -1,13 +1,13 @@
 <% include ../partials/header %>
-    <h1 class="text-center">Add Comment for <%= campground.name %></h1>
+    <h1 class="text-center">Edit Comment</h1>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <form action="/campgrounds/<%= campground.id%>/comments/<%= comment.id %>?_method=put" method="post">
+        <form action="/campgrounds/<%= campgroundId %>/comments/<%= comment.id %>?_method=put" method="post">
           <div class="form-group">
             <textarea name="comment" class="form-control"><%= comment.text %></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-block">Submit</button>
-          <a href="/campgrounds/<%= campground.id %>" class="btn btn-outline-secondary btn-block">Cancel</a>
+          <a href="/campgrounds/<%= campgroundId %>" class="btn btn-outline-secondary btn-block">Cancel</a>
         </form>
       </div>
     </div>

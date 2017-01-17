@@ -1,6 +1,7 @@
 var express = require('express');
 var Campground = require('../models/campground');
 var Comment = require('../models/comment');
+var {checkCommentOwnership, isLoggedIn} = require('../middleware/index');
 var router = express.Router({ mergeParams: true });
 
 //New route
@@ -44,19 +45,14 @@ router.post('/', isLoggedIn, (req, res) => {
 
 //Edit route
 router.get('/:commentId/edit', checkCommentOwnership, (req, res) => {
-  Campground.findById(req.params.id, (err, campground) => {
-    if(err) {
-      console.log(err);
-      res.redirect('back');
-    }
+  const campgroundId = req.params.id;
     Comment.findById(req.params.commentId, (err, comment) => {
       if(err) {
         console.log(err);
         res.redirect('back');
       }
-      res.render('comments/edit', {campground, comment});
+      res.render('comments/edit', {campgroundId, comment});
     });
-  });
 });
 
 //Update route
@@ -81,30 +77,5 @@ router.delete('/:commentId', checkCommentOwnership, (req, res) => {
     res.redirect('back');
   });
 });
-
-
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-      return next();
-    }
-    res.redirect('/login');
-};
-
-function checkCommentOwnership(req, res, next) {
-  if(req.isAuthenticated()) {
-    Comment.findById(req.params.commentId, (err, comment) => {
-      if(err) {
-        console.log(err);
-        res.redirect('back');
-      } else if(comment.author.id.equals(req.user.id)) {
-        return next();
-      } else {
-        res.redirect('back');        
-      }
-    });
-  } else {
-    res.redirect('/login');
-  }
-}
 
 module.exports = router;
