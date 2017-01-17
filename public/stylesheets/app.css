@@ -32,3 +32,11 @@
   font-size: 90%;
   margin: 0 15px 5px 15px;
 }
+
+.option-button {
+  width: 100px;
+}
+
+.delete-inline {
+  display: inline;
+}

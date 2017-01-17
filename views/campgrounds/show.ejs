@@ -18,13 +18,22 @@
       <img src="<%= campground.image %>" class="img-fluid figure-img camp-image">
       <div class="camp-info">
         <div class="row justify-content-between align-items-center">
-          <h3 class="col-4"><%= campground.name %></h3>
+          <h3 class="col-8"><%= campground.name %></h3>
           <h6 class="col-4 text-right">$9.99/night</h6>
         </div>
         <div class="row">
           <p class="figure-caption camp-desc"><em>Submitted by <%= campground.author.username %></em></p>
+        </div>
+        <div class="row">
           <p class="figure-caption camp-desc"><%= campground.description %></p>
         </div>
+        <% if(currentUser && campground.author.id.equals(currentUser.id)) { %>
+          <hr />
+          <a href="/campgrounds/<%= campground.id %>/edit" class="btn btn-success option-button">Edit</a>
+          <form class="delete-inline" action="/campgrounds/<%= campground.id %>?_method=delete" method="post">
+            <button class="btn btn-danger option-button">Delete</button>
+          </form>
+        <% } %>
       </div>
     </figure>
   </div>

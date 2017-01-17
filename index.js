@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var passportLocalMongoose = require('passport-local-mongoose');
+var methodOverride = require('method-override');
 var Campground = require('./models/campground');
 var Comment = require('./models/comment');
 var User = require('./models/user');
@@ -23,7 +24,7 @@ var app = express();
 mongoose.connect('mongodb://localhost/yelpcamp');
 
 //Wipe data and then reseed database
-seedDB();
+//seedDB();
 
 //Express settings
 app.use(express.static("public"));
@@ -33,6 +34,7 @@ app.use(require('express-session')({
   resave: false,
   saveUninitialized: false
 }));
+app.use(methodOverride('_method'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
