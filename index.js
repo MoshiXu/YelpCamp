@@ -19,7 +19,7 @@ var seedDB = require('./seeds');
 
 //Global for environment variables - differentiation between local and hosted
 const PORT = process.env.PORT || 3000;
-const DATABASEURL = process.env.DATABASEURL || 'mongodb://localhost/yelpcamp';
+const DATABASEURL = process.env.DATABASEURL || 'mongodb://nema:mlabdbpass@ds117819.mlab.com:17819/nmabachi-yelp';
 
 //Instantiate express and connect to mongoDB
 var app = express();
