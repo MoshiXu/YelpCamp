@@ -23,11 +23,12 @@ router.get('/new', isLoggedIn, (req, res) => {
 
 //Create route
 router.post('/', isLoggedIn, (req, res) => {
-  var {campName, campImage, campDescription} = req.body;
+  var {campName, campImage, campPrice, campDescription} = req.body;
   Campground.create({
     name: campName,
     image: campImage,
     description: campDescription,
+    price: campPrice,
     author: {
       id: req.user.id,
       username: req.user.username }
@@ -71,10 +72,11 @@ router.get('/:id/edit', checkCampgroundOwnership, (req, res) => {
 
 //Update route
 router.put('/:id', checkCampgroundOwnership, (req, res) => {
-  const {campName, campImage, campDescription} = req.body;
+  const {campName, campImage, campPrice, campDescription} = req.body;
   Campground.findByIdAndUpdate(req.params.id, {
     name: campName,
     image: campImage,
+    price: campPrice,
     description: campDescription
     }, (err, campground) => {
     if(err) {

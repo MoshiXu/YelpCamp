@@ -17,15 +17,16 @@ var commentRoutes = require('./routes/comments');
 var indexRoutes = require('./routes/index');
 var seedDB = require('./seeds');
 
-//Global for port - differentiation between local and hosted ports
+//Global for environment variables - differentiation between local and hosted
 const PORT = process.env.PORT || 3000;
+const DATABASEURL = process.env.DATABASEURL || 'mongodb://localhost/yelpcamp';
 
 //Instantiate express and connect to mongoDB
 var app = express();
-mongoose.connect('mongodb://localhost/yelpcamp');
+mongoose.connect(DATABASEURL);
 
 //Wipe data and then reseed database
-//seedDB();
+seedDB();
 
 //Express settings
 app.use(express.static("public"));
