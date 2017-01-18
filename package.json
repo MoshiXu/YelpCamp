@@ -4,7 +4,8 @@
   "description": "Simple Yelp clone using Node.js for the back-end, MongoDB and Mongoose for the database.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Nema",
   "license": "ISC",
