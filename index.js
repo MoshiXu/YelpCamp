@@ -26,7 +26,7 @@ var app = express();
 mongoose.connect(DATABASEURL);
 
 //Wipe data and then reseed database
-seedDB();
+//seedDB();
 
 //Express settings
 app.use(express.static("public"));
