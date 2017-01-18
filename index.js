@@ -18,8 +18,8 @@ var indexRoutes = require('./routes/index');
 var seedDB = require('./seeds');
 
 //Global for environment variables - differentiation between local and hosted
-const PORT = process.env.PORT || 3000;
-const DATABASEURL = process.env.DATABASEURL || 'mongodb://nema:mlabdbpass@ds117819.mlab.com:17819/nmabachi-yelp';
+const PORT = process.env.PORT;
+const DATABASEURL = process.env.DATABASEURL;
 
 //Instantiate express and connect to mongoDB
 var app = express();
